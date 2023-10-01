@@ -19,7 +19,7 @@ function TableBody(props) {
         <td>{row.job}</td>
         <td>
                       <button onClick={() =>
-                              props.removeCharacter(index)}>
+                              props.removeOneCharacter(index)}>
                               Delete
                       </button>
         </td>
@@ -39,7 +39,7 @@ function Table(props) {
       <table>
         <TableHeader />
         <TableBody characterData={props.characterData} 
-                    removeCharacter={props.removeCharacter}/>
+                    removeOneCharacter={props.removeOneCharacter}/>
       </table>
     );
 }
