@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
@@ -44,7 +45,7 @@ app.get("/users/:id", (req, res) => {
     res.send(result);
   }
 });
-
+app.use(cors());
 app.use(express.json());
 
 
@@ -71,7 +72,6 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => {
   const { name, job } = req.query;
   let filteredUsers = users.users_list;
-  console.log("name and job:", name, job);
 
   if (name !== undefined && job !== undefined) {
     filteredUsers = filteredUsers.filter(
