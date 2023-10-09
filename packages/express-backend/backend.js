@@ -32,6 +32,13 @@ const users = {
     },
   ],
 };
+const generateRandomId = () =>{
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+  const randomLetters = Array.from({length:3}, () =>
+    letters.charAt(Math.floor(Math.random() * letters.length))).join('');
+  const randomNumbers = Math.random().toString().substring(2,5);
+  return `${randomLetters}${randomNumbers}`;
+}
 
 const findUserById = (id) =>
   users["users_list"].find((user) => user["id"] === id);
@@ -59,7 +66,7 @@ app.delete("/users/:id", (req, res) => {
   const index = users.users_list.findIndex((user) => user.id === id);
   if (index !== -1) {
     users.users_list.splice(index, 1);
-    res.status(204).send();
+    res.sendStatus(204);
   } else {
     res.status(404).send("User not found.");
   }
@@ -88,8 +95,10 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  const randomId = generateRandomId();
+  userToAdd.id = randomId;
   addUser(userToAdd);
-  res.send();
+  res.status(201).json(userToAdd);
 });
 
 app.listen(port, () => {
